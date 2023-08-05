@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Admin List View</title>
+    <!-- Add Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Lists</h1>
+        <a class="btn btn-primary" href="/recover">Recover</a>
+
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>mailId</th>
+                    <th>mobileNo</th>
+                    <th>City</th>
+                    <th>password</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="listmodel : ${reglists}">
+                    <td th:text="${listmodel.Username}"></td>
+                    <td th:text="${listmodel.Mail}"></td>
+                    <td th:text="${listmodel.Mobile}"></td>
+                    <td th:text="${listmodel.City}"></td>
+                    <td th:text="${listmodel.password}"></td>
+                    <td><a class="btn btn-info" th:href="@{/edit/{id}(id=${listmodel.UserId})}">Edit</a></td>
+                    <td><a class="btn btn-danger" th:href="@{/delete/{id}(id=${listmodel.UserId})}">Delete</a></td>
+                </tr>
+            </tbody>
+        </table>
+        <nav aria-label="Page navigation">
+                <ul class="pagination justify-content-center">
+                    <li class="page-item" id="prevPage">
+                        <a class="page-link" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item" id="nextPage">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        
+        
+        
+        
+        
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            var rowsPerPage = 5;
+            var $table = $(".table");
+            var $tableRows = $table.find("tbody tr");
+            var totalRows = $tableRows.length;
+            var totalPages = Math.ceil(totalRows / rowsPerPage);
+            var currentPage = 1;
+
+            function showPage(page) {
+                var start = (page - 1) * rowsPerPage;
+                var end = start + rowsPerPage;
+                $tableRows.hide();
+                $tableRows.slice(start, end).show();
+            }
+
+            function updatePaginationButtons() {
+                $("#prevPage").toggleClass("disabled", currentPage === 1);
+                $("#nextPage").toggleClass("disabled", currentPage === totalPages);
+            }
+
+            function goToPage(page) {
+                if (page >= 1 && page <= totalPages) {
+                    currentPage = page;
+                    showPage(currentPage);
+                    updatePaginationButtons();
+                }
+            }
+
+            $("#prevPage").click(function (e) {
+                e.preventDefault();
+                goToPage(currentPage - 1);
+            });
+
+            $("#nextPage").click(function (e) {
+                e.preventDefault();
+                goToPage(currentPage + 1);
+            });
+
+            showPage(currentPage);
+            updatePaginationButtons();
+        });
+    </script>
+    
+</body>
+</html>

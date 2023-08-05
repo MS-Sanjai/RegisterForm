@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Recover Lists</title>
+    <!-- Add Bootstrap CSS link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-4">
+        <h1>Recover Lists</h1>
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>mailId</th>
+                    <th>mobileNo</th>
+                    <th>City</th>
+                    <th>password</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Replace with actual Thymeleaf dynamic content -->
+                <tr th:each="recoverRecord : ${RecoverList}">
+                    <td th:text="${recoverRecord.username}"></td>
+                    <td th:text="${recoverRecord.Mail}"></td>
+                    <td th:text="${recoverRecord.Mobile}"></td>
+                    <td th:text="${recoverRecord.City}"></td>
+                    <td th:text="${recoverRecord.password}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Add Bootstrap JS and Popper.js (required for some Bootstrap components) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
